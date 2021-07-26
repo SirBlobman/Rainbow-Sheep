@@ -14,7 +14,7 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         
-        <spigot.version>1.8.8-R0.1-SNAPSHOT</spigot.version>
+        <spigot.version>1.16.5-R0.1-SNAPSHOT</spigot.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         
         <bukkit.plugin.name>RainbowSheep</bukkit.plugin.name>
@@ -22,24 +22,44 @@
         <bukkit.plugin.description>${project.description}</bukkit.plugin.description>
         
         <bukkit.plugin.main>com.github.sirblobman.rainbow.sheep.RainbowSheepPlugin</bukkit.plugin.main>
-        <bukkit.plugin.version>1.0.1</bukkit.plugin.version>
+        <bukkit.plugin.version>1.0.2</bukkit.plugin.version>
     </properties>
     
     <repositories>
-        <!-- SpigotMC Repository -->
+        <!-- PaperMC Repository -->
         <repository>
-            <id>spigot-repo</id>
-            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+            <id>papermc</id>
+            <url>https://papermc.io/repo/repository/maven-public/</url>
+        </repository>
+
+        <!-- SirBlobman Public Repository -->
+        <repository>
+            <id>sirblobman-public</id>
+            <url>https://nexus.sirblobman.xyz/repository/public/</url>
         </repository>
     </repositories>
     
     <dependencies>
-        <!-- Spigot API -->
+        <!-- Paper API -->
         <dependency>
-            <groupId>org.spigotmc</groupId>
-            <artifactId>spigot-api</artifactId>
+            <groupId>com.destroystokyo.paper</groupId>
+            <artifactId>paper-api</artifactId>
             <version>${spigot.version}</version>
             <scope>provided</scope>
+        </dependency>
+
+        <!-- SirBlobmanAPI: NMS Handler -->
+        <dependency>
+            <groupId>com.github.sirblobman.api.nms</groupId>
+            <artifactId>nms-handler</artifactId>
+            <version>2.3-SNAPSHOT</version>
+            <scope>compile</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.github.cryptomorin</groupId>
+                    <artifactId>XSeries</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
     
@@ -60,11 +80,53 @@
     <build>
         <finalName>${bukkit.plugin.name}-${bukkit.plugin.version}</finalName>
         <defaultGoal>clean install</defaultGoal>
+
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
             </resource>
         </resources>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.3.0-SNAPSHOT</version>
+
+                <configuration>
+                    <shadedArtifactAttached>false</shadedArtifactAttached>
+
+                    <filters>
+                        <filter>
+                            <artifact>com.github.sirblobman.api*:*</artifact>
+                            <excludes>
+                                <exclude>META-INF/**</exclude>
+                            </excludes>
+                        </filter>
+                    </filters>
+
+                    <relocations>
+                        <relocation>
+                            <pattern>com.github.sirblobman.api</pattern>
+                            <shadedPattern>com.github.sirblobman.rainbow.sheep.nms</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>com.github.sirblobman.bossbar</pattern>
+                            <shadedPattern>com.github.sirblobman.rainbow.sheep.nms.bossbar</shadedPattern>
+                        </relocation>
+                    </relocations>
+                </configuration>
+
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
     </build>
 </project>
