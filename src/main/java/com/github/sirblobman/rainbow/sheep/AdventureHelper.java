@@ -8,7 +8,6 @@ public final class AdventureHelper {
     public static void setCustomName(Entity entity, String text, boolean visible) {
         Component component = Component.text(text);
         entity.customName(component);
-
         entity.setCustomNameVisible(visible);
     }
 }

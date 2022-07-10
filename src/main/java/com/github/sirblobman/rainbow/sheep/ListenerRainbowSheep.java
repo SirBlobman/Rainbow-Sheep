@@ -44,7 +44,9 @@ public final class ListenerRainbowSheep implements Listener {
     public void onSpawn(ChunkLoadEvent e) {
         Chunk chunk = e.getChunk();
         Entity[] entityArray = chunk.getEntities();
-        for(Entity entity : entityArray) rename(entity);
+        for(Entity entity : entityArray) {
+            rename(entity);
+        }
     }
 
     private void rename(Entity entity) {
