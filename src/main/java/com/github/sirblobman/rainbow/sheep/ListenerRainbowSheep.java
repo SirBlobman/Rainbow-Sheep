@@ -17,29 +17,29 @@ public final class ListenerRainbowSheep extends PluginListener<RainbowSheepPlugi
         super(plugin);
     }
 
-    @EventHandler(priority=EventPriority.MONITOR, ignoreCancelled=true)
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onSpawn(EntitySpawnEvent e) {
         Entity entity = e.getEntity();
         rename(entity);
     }
 
-    @EventHandler(priority=EventPriority.MONITOR, ignoreCancelled=true)
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onSpawn(CreatureSpawnEvent e) {
         Entity entity = e.getEntity();
         rename(entity);
     }
 
-    @EventHandler(priority=EventPriority.MONITOR, ignoreCancelled=true)
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onSpawn(ChunkLoadEvent e) {
         Chunk chunk = e.getChunk();
         Entity[] entityArray = chunk.getEntities();
-        for(Entity entity : entityArray) {
+        for (Entity entity : entityArray) {
             rename(entity);
         }
     }
 
     private void rename(Entity entity) {
-        if(entity instanceof Sheep) {
+        if (entity instanceof Sheep) {
             Sheep sheep = (Sheep) entity;
             rename(sheep);
         }
@@ -48,12 +48,12 @@ public final class ListenerRainbowSheep extends PluginListener<RainbowSheepPlugi
     private void rename(Sheep sheep) {
         try {
             AdventureHelper.setCustomName(sheep, "jeb_", false);
-        } catch(ClassCastException | NoClassDefFoundError ex) {
+        } catch (ClassCastException | NoClassDefFoundError ex) {
             try {
                 RainbowSheepPlugin plugin = getPlugin();
                 EntityHandler entityHandler = plugin.getEntityHandler();
                 entityHandler.setCustomNameTextOnly(sheep, "jeb_", false);
-            } catch(Exception ex2) {
+            } catch (Exception ex2) {
                 sheep.setCustomName("jeb_");
                 sheep.setCustomNameVisible(false);
             }
