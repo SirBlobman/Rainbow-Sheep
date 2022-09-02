@@ -1,12 +1,17 @@
 [SIZE=5][B]Supported Spigot Versions:[/B][/SIZE]
-1.8.8, 1.12.2, 1.16.5, 1.18.2, 1.19
+1.8.8, 1.12.2, 1.16.5, 1.18.2, 1.19.2
+
+[SIZE=5][COLOR=rgb(255, 0, 0)][B]Dependencies:[/B][/COLOR][/SIZE]
+[LIST]
+[*][URL='https://www.spigotmc.org/resources/83189/']BlueSlimeCore[/URL]
+[/LIST]
 
 [SIZE=5][COLOR=#FF0000][B]Description:[/B][/COLOR][/SIZE]
 Rainbow Sheep is a plugin that sets the name of all sheep to jeb so they become rainbow.
 
 [SIZE=5][COLOR=#FF0000][B]Features:[/B][/COLOR][/SIZE]
 [LIST]
-[*]Renames all sheep to [ICODe]jeb_[/ICODE] so that they have a rainbow animation.
+[*]Renames all sheep to [ICODE]jeb_[/ICODE] so that they have a rainbow animation.
 [*]The original wool color is not changed.
 [*]Sheep are renamed when they spawn and when a chunk loads.
 [/LIST]
