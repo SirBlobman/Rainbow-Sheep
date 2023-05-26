@@ -1,5 +1,7 @@
 package com.github.sirblobman.rainbow.sheep;
 
+import org.jetbrains.annotations.NotNull;
+
 import org.bukkit.Chunk;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Sheep;
@@ -13,7 +15,7 @@ import com.github.sirblobman.api.nms.EntityHandler;
 import com.github.sirblobman.api.plugin.listener.PluginListener;
 
 public final class ListenerRainbowSheep extends PluginListener<RainbowSheepPlugin> {
-    public ListenerRainbowSheep(RainbowSheepPlugin plugin) {
+    public ListenerRainbowSheep(@NotNull RainbowSheepPlugin plugin) {
         super(plugin);
     }
 
@@ -38,14 +40,14 @@ public final class ListenerRainbowSheep extends PluginListener<RainbowSheepPlugi
         }
     }
 
-    private void rename(Entity entity) {
+    private void rename(@NotNull Entity entity) {
         if (entity instanceof Sheep) {
             Sheep sheep = (Sheep) entity;
             rename(sheep);
         }
     }
 
-    private void rename(Sheep sheep) {
+    private void rename(@NotNull Sheep sheep) {
         try {
             AdventureHelper.setCustomName(sheep, "jeb_", false);
         } catch (ClassCastException | NoClassDefFoundError ex) {
